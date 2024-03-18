@@ -10,7 +10,9 @@
 local modname = "team-lock"
 local version = "1.0"
 
+-- local flags
 
+local roundStarted = false
 
 function et_InitGame(levelTime, randomSeed, restart)
     et.RegisterModname("team-lock")
@@ -18,14 +20,22 @@ end
 
 function et_RunFrame(levelTime)
     if et.trap_Cvar_Get("gamestate") == "0" then -- Game is running
-        et.trap_SendConsoleCommand(et.EXEC_APPEND, "ref lock r\n")
-        et.trap_SendConsoleCommand(et.EXEC_APPEND, "ref lock b\n")
+        if not roundStarted then
+            et.trap_SendConsoleCommand(et.EXEC_APPEND, "ref lock r\n")
+            et.trap_SendConsoleCommand(et.EXEC_APPEND, "ref lock b\n")
+            roundStarted = true
+        end
+    else
+        roundStarted = false
     end
 end
 
 function et_ClientCommand(clientNum, command)
-    if string.lower(et.trap_Argv(0)) == "unpause" then
-        et.trap_SendConsoleCommand(et.EXEC_APPEND, "ref lock r\n")
-        et.trap_SendConsoleCommand(et.EXEC_APPEND, "ref lock b\n")
+    local cmd = string.lower(et.trap_Argv(0))
+    if cmd == "pause" then
+        et.trap_SendConsoleCommand(et.EXEC_APPEND, "ref unlock r\n")
+        et.trap_SendConsoleCommand(et.EXEC_APPEND, "ref unlock b\n")
+    elseif cmd == "unpause" then
+        roundStarted = false -- This will allow the lock commands to be reissued when the game resumes
     end
 end
