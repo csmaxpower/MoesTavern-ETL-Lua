@@ -7,6 +7,8 @@
                     is a start to a round or a gamestate change from pause/unpause.
 ]]--
 
+-- version info
+
 local modname = "team-lock"
 local version = "1.0"
 
@@ -15,7 +17,7 @@ local version = "1.0"
 local roundStarted = false
 
 function et_InitGame(levelTime, randomSeed, restart)
-    et.RegisterModname("team-lock")
+    et.RegisterModname(modname .. " " .. version)
 end
 
 function et_RunFrame(levelTime)
