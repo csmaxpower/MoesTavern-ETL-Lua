@@ -1,9 +1,10 @@
 --[[
-    Contributors: mAxPower
+    Author: mAxPower
+    Contributors:
     License: MIT
 
     Description:    In ETLegacy stopwatch, teams are unlocked when there is a gamestate change.
-                    This script solves this by locking each team using referee commands when there
+                    This script solves the issue by locking each team using referee commands when there
                     is a start to a round or a gamestate change from pause/unpause.
 ]]--
 
