@@ -10,11 +10,6 @@
 local modname = "team-lock"
 local version = "1.0"
 
--- local constants
-
-
--- local variables
-
 
 
 function et_InitGame(levelTime, randomSeed, restart)
